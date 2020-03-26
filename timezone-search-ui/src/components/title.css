@@ -1,0 +1,8 @@
+.title {
+    padding-top: 1.5em;
+}
+
+.title .text {
+    font-family: monospace;
+    font-size: xx-large;
+}

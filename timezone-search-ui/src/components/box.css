@@ -1,0 +1,10 @@
+.box {
+    -webkit-box-shadow: 0px 2px 4px 0px rgba(214,214,214,0.6);
+    -moz-box-shadow: 0px 2px 4px 0px rgba(214,214,214,0.6);
+    box-shadow: 0px 2px 4px 0px rgba(214,214,214,0.6);
+
+    border-color: #FFF;
+    font-family: Open Sans;
+    padding: 1.5em;
+    margin: 1em;
+}

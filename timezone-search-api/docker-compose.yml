@@ -1,0 +1,10 @@
+version: '2'
+services:
+  api:
+    build: .
+    command: npm start
+    volumes:
+      - .:/timezonesearch
+      - ./node_modules:/timezonesearch/node_modules
+    ports:
+      - "3000:3000"

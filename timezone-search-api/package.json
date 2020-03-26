@@ -1,0 +1,19 @@
+{
+  "name": "timezonesearch",
+  "version": "1.0.0",
+  "description": "Search for a timezone",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Charles Garth",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "4.17.3",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "typescript": "3.8.3"
+  }
+}

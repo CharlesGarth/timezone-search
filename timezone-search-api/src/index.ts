@@ -1,18 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import * as mysql from 'promise-mysql';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app: any = express();
-const port: number = 3000;
+const port: number = parseInt(process.env.API_PORT);
 
 app.get('/timezones', cors(), async (req: { query: { search: string }; }, res: any) => {
     const config = {
-        connectionLimit: 100,
-        host: "localhost",
-        port: 3308,
-        user: "root",
-        password: "password",
-        database: "timezones"
+        connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT),
+        host: process.env.DB_HOST,
+        port: parseInt(process.env.DB_PORT),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
     };
 
     try {

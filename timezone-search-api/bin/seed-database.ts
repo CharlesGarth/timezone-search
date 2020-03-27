@@ -5,12 +5,13 @@ import { promises as fs } from 'fs';
 const seedDatabase = async () => {
     let connection: mysql.Connection;
     try {
+
         connection = await mysql.createConnection({
-            host: "localhost",
-            port: 3308,
-            user: "root",
-            password: "password",
-            database: "timezones"
+            host: process.env.DB_HOST,
+            port: parseInt(process.env.DB_PORT),
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE
         });
 
         const dropTable = "DROP TABLE timezones";

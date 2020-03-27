@@ -22,16 +22,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const mysql = __importStar(require("promise-mysql"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const app = express_1.default();
-const port = 3000;
+console.log(parseInt(process.env.API_PORT));
+const port = parseInt(process.env.API_PORT);
 app.get('/timezones', cors_1.default(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const config = {
-        connectionLimit: 100,
-        host: "localhost",
-        port: 3308,
-        user: "root",
-        password: "password",
-        database: "timezones"
+        connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT),
+        host: process.env.DB_HOST,
+        port: parseInt(process.env.DB_PORT),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
     };
     try {
         const pool = yield mysql.createPool(config);

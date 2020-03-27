@@ -1,11 +1,13 @@
 import * as mysql from 'promise-mysql';
 import * as xmlJs from 'xml-js';
 import { promises as fs } from 'fs';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const seedDatabase = async () => {
     let connection: mysql.Connection;
     try {
-
         connection = await mysql.createConnection({
             host: process.env.DB_HOST,
             port: parseInt(process.env.DB_PORT),

@@ -15,13 +15,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql = __importStar(require("promise-mysql"));
 const xmlJs = __importStar(require("xml-js"));
 const fs_1 = require("fs");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     let connection;
     try {
+        console.log({
+            host: process.env.DB_HOST,
+            port: parseInt(process.env.DB_PORT),
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE
+        });
         connection = yield mysql.createConnection({
             host: process.env.DB_HOST,
             port: parseInt(process.env.DB_PORT),

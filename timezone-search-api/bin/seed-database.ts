@@ -5,6 +5,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+let retries = 0;
+
+function promiseTimeout (time) {
+    return new Promise(function(resolve,reject){
+      setTimeout(function(){resolve(time);},time);
+    });
+  };
+
 const seedDatabase = async () => {
     let connection: mysql.Connection;
     try {
@@ -37,6 +45,14 @@ const seedDatabase = async () => {
         console.log("data inserted from xml");
     } catch (error) {
         console.error(error);
+        if (retries < 5) {
+            // wait 30 seconds then retry
+            console.log('retrying: ' + retries);
+            retries++;
+            await promiseTimeout(30000);
+            return await seedDatabase();
+        }
+
         await connection.end();
         process.exit(1);
     }

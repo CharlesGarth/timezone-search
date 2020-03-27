@@ -24,6 +24,13 @@ const xmlJs = __importStar(require("xml-js"));
 const fs_1 = require("fs");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+let retries = 0;
+function promiseTimeout(time) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () { resolve(time); }, time);
+    });
+}
+;
 const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     let connection;
     try {
@@ -51,6 +58,13 @@ const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error(error);
+        if (retries < 5) {
+            // wait 30 seconds then retry
+            console.log('retrying: ' + retries);
+            retries++;
+            yield promiseTimeout(30000);
+            return yield seedDatabase();
+        }
         yield connection.end();
         process.exit(1);
     }

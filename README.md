@@ -6,8 +6,9 @@ The results of the timezone search are displayed alongside a constantly updating
 ### Using docker:
 
 1. run `docker-compose up -d` to start MySQL DB, API and UI
-2. go to `http://localhost:3001` to access the UI
-3. call the api directly like so: `http://localhost:3000/timezones?search=Island`
+2. wait while everything spins up - 1-2 mins depending on how fast your machine is
+3. go to `http://localhost:3001` to access the UI
+4. call the api directly like so: `http://localhost:3000/timezones?search=Island`
 
 ### Using run-everything.sh Script
 

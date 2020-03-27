@@ -27,13 +27,6 @@ dotenv_1.default.config();
 const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     let connection;
     try {
-        console.log({
-            host: process.env.DB_HOST,
-            port: parseInt(process.env.DB_PORT),
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_DATABASE
-        });
         connection = yield mysql.createConnection({
             host: process.env.DB_HOST,
             port: parseInt(process.env.DB_PORT),

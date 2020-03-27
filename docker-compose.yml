@@ -1,10 +1,25 @@
-version: '3.7'
+version: '3'
 services:
+  ui:
+    build: ./timezone-search-ui
+    command: npm start
+    stdin_open: true
+    volumes:
+      - ./timezone-search-ui:/timezonesearch/ui
+    expose: 
+      - "3001"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+      - db
   api:
-    build: .
+    build: ./timezone-search-api
     command: npm start
     volumes:
-      - .:/timezonesearch
+      - ./timezone-search-api:/timezonesearch/api
+    expose: 
+      - "3000"
     ports:
       - "3000:3000"
     depends_on:

@@ -29,10 +29,10 @@ const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE
         });
-        const dropTable = "DROP TABLE timezones";
+        const dropTable = "DROP TABLE IF EXISTS timezones";
         yield connection.query(dropTable);
-        console.log("table dropped");
-        const createTable = "CREATE TABLE timezones (id INT PRIMARY KEY, name VARCHAR(255), hours INT, mins INT, secs INT)";
+        console.log("table toredown");
+        const createTable = "CREATE TABLE IF NOT EXISTS timezones (id INT PRIMARY KEY, name VARCHAR(255), hours INT, mins INT, secs INT)";
         yield connection.query(createTable);
         console.log("table created");
         const xml = yield fs_1.promises.readFile(process.cwd() + '/bin/timezones.xml', 'utf8');

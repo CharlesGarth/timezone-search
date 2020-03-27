@@ -1,6 +1,7 @@
 FROM node:12.16.1
-WORKDIR /timezonesearch
-COPY package.json .
+RUN mkdir -p /timezonesearch/api/
+WORKDIR /timezonesearch/api/
+COPY package.json /timezonesearch/api/
 RUN npm install
-COPY ./src ./src
-COPY ./bin ./bin
+COPY ./src ./timezonesearch/api/src
+COPY ./bin ./timezonesearch/api/bin

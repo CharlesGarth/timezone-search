@@ -14,11 +14,11 @@ const seedDatabase = async () => {
             database: process.env.DB_DATABASE
         });
 
-        const dropTable = "DROP TABLE timezones";
+        const dropTable = "DROP TABLE IF EXISTS timezones";
         await connection.query(dropTable);
-        console.log("table dropped");
+        console.log("table toredown");
 
-        const createTable = "CREATE TABLE timezones (id INT PRIMARY KEY, name VARCHAR(255), hours INT, mins INT, secs INT)";
+        const createTable = "CREATE TABLE IF NOT EXISTS timezones (id INT PRIMARY KEY, name VARCHAR(255), hours INT, mins INT, secs INT)";
 
         await connection.query(createTable);
         console.log("table created");

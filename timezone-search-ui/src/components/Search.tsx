@@ -26,7 +26,7 @@ export default class Search extends React.Component<IProps, IState> {
 
     public async handleOnChange(e: { target: { value: string }}) {
         const results: IResults = await this.props.getResults(e.target.value);
-        this.setState({results: results.data || [this.props.placeholder]})
+        this.setState({results: results.data || [this.props.placeholder]});
     }
 
     public render() {

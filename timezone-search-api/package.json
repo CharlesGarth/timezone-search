@@ -13,9 +13,11 @@
   "author": "Charles Garth",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "17.1.1",
     "@types/cors": "2.8.6",
     "@types/dotenv": "8.2.0",
     "@types/express": "4.17.3",
+    "@types/hapi__joi": "16.0.12",
     "@types/mysql": "2.15.9",
     "@types/xml-js": "1.0.0",
     "cors": "2.8.5",

@@ -31,7 +31,7 @@ const Results = (props: IProps) => {
         };
     }, []);
 
-    const results = (props.results.length === 0) ? "No results" : props.results.map((r, i) => <div key={i}>{getTimeForTimezone(r, timeUTC)}</div>)
+    const results = (props.results && props.results.length === 0) ? "No results" : props.results.map((r, i) => <div key={i}>{getTimeForTimezone(r, timeUTC)}</div>)
 
     return(
         <span className="results">

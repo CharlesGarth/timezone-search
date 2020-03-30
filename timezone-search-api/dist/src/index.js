@@ -23,10 +23,24 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const mysql = __importStar(require("promise-mysql"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const joi_1 = __importDefault(require("@hapi/joi"));
 dotenv_1.default.config();
 const app = express_1.default();
 const port = parseInt(process.env.API_PORT);
-app.get('/timezones', cors_1.default(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const searchSchema = joi_1.default.object({ search: joi_1.default.string().alphanum().min(0).max(255).allow('').optional() });
+const validate = (schema, property) => {
+    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield schema.validateAsync(req[property]);
+            next();
+        }
+        catch (error) {
+            console.log("Invalid Input: ", error);
+            res.status(422).json({ error: error });
+        }
+    });
+};
+app.get('/timezones', cors_1.default(), validate(searchSchema, 'query'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const config = {
         connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT),
         host: process.env.DB_HOST,

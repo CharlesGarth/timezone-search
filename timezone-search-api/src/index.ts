@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import * as mysql from 'promise-mysql';
+import mysql, { Pool } from 'promise-mysql';
 import dotenv from 'dotenv';
 import joi, { ObjectSchema } from '@hapi/joi';
 
@@ -8,6 +8,7 @@ dotenv.config();
 
 const app: Express = express();
 const port: number = parseInt(process.env.API_PORT);
+let pool: Pool;
 
 const searchSchema: ObjectSchema = joi.object({search: joi.string().alphanum().min(0).max(255).allow('').optional()});
 
@@ -24,17 +25,7 @@ const validate = (schema: ObjectSchema, property: string) => {
 }
 
 app.get('/timezones', cors(), validate(searchSchema, 'query'), async (req: { query: { search: string }; }, res: any) => {
-    const config = {
-        connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT),
-        host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT),
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE
-    };
-
     try {
-        const pool = await mysql.createPool(config);
         const search = `SELECT * FROM timezones WHERE name LIKE '%${req.query.search}%';`;
         const result = await pool.query(search);
         return res.json(result);
@@ -45,4 +36,15 @@ app.get('/timezones', cors(), validate(searchSchema, 'query'), async (req: { que
     }
 });
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, async () => { 
+    const config = {
+        connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT),
+        host: process.env.DB_HOST,
+        port: parseInt(process.env.DB_PORT),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
+    };
+    pool = await mysql.createPool(config);
+    console.log(`listening on port ${port}`);
+});
